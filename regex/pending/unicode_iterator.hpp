@@ -16,47 +16,37 @@
   *   DESCRIPTION: Iterator adapters for converting between different Unicode encodings.
   */
 
-/****************************************************************************
-
-Contents:
-~~~~~~~~~
-
-1) Read Only, Input Adapters:
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-template <class BaseIterator, class U8Type = ::boost::uint8_t>
-class u32_to_u8_iterator;
-
-Adapts sequence of UTF-32 code points to "look like" a sequence of UTF-8.
-
-template <class BaseIterator, class U32Type = ::boost::uint32_t>
-class u8_to_u32_iterator;
-
-Adapts sequence of UTF-8 code points to "look like" a sequence of UTF-32.
-
-template <class BaseIterator, class U16Type = ::boost::uint16_t>
-class u32_to_u16_iterator;
-
-Adapts sequence of UTF-32 code points to "look like" a sequence of UTF-16.
-
-template <class BaseIterator, class U32Type = ::boost::uint32_t>
-class u16_to_u32_iterator;
-
-Adapts sequence of UTF-16 code points to "look like" a sequence of UTF-32.
-
-2) Single pass output iterator adapters:
-
-template <class BaseIterator>
-class utf8_output_iterator;
-
-Accepts UTF-32 code points and forwards them on as UTF-8 code points.
-
-template <class BaseIterator>
-class utf16_output_iterator;
-
-Accepts UTF-32 code points and forwards them on as UTF-16 code points.
-
-****************************************************************************/
+/**************************************************************************\
+ * Copyright (c) Kongsberg Oil & Gas Technologies AS
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are
+ * met:
+ * 
+ * Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ * 
+ * Redistributions in binary form must reproduce the above copyright
+ * notice, this list of conditions and the following disclaimer in the
+ * documentation and/or other materials provided with the distribution.
+ * 
+ * Neither the name of the copyright holder nor the names of its
+ * contributors may be used to endorse or promote products derived from
+ * this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+\**************************************************************************/
 
 #ifndef BOOST_REGEX_UNICODE_ITERATOR_HPP
 #define BOOST_REGEX_UNICODE_ITERATOR_HPP
