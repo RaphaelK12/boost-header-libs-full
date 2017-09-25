@@ -5,7 +5,7 @@
     
     http://www.boost.org/
 
-    Copyright (c) 2001-2010 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2012 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -80,6 +80,18 @@
 //
 #if !defined(BOOST_WAVE_SUPPORT_INCLUDE_NEXT)
 #define BOOST_WAVE_SUPPORT_INCLUDE_NEXT 1
+#endif
+
+///////////////////////////////////////////////////////////////////////////////
+//  Decide, whether to support C++11
+//
+//  To implement C++11 keywords and preprocessor semantics define the following 
+//  to something not equal to zero.
+//
+#if !defined(BOOST_WAVE_SUPPORT_CPP0X)
+#define BOOST_WAVE_SUPPORT_CPP0X 1
+#undef BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS
+#define BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS 1
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -174,7 +186,9 @@
 #endif
 
 #if BOOST_WAVE_SUPPORT_THREADING != 0 
-#define BOOST_SPIRIT_THREADSAFE 1
+#ifndef BOOST_SPIRIT_THREADSAFE
+#define BOOST_SPIRIT_THREADSAFE
+#endif
 #define PHOENIX_THREADSAFE 1
 #else
 // disable thread support in Boost.Pool
@@ -190,8 +204,7 @@
 // VC7 isn't able to compile the flex_string class, fall back to std::string 
 // CW up to 8.3 chokes as well *sigh*
 // Tru64/CXX has linker problems when using flex_string
-#if BOOST_WORKAROUND(BOOST_MSVC, <= 1300) || \
-    BOOST_WORKAROUND(__MWERKS__, < 0x3200) || \
+#if BOOST_WORKAROUND(__MWERKS__, < 0x3200) || \
     (defined(__DECCXX) && defined(__alpha)) || \
     defined(BOOST_WAVE_STRINGTYPE_USE_STDSTRING) 
 
@@ -216,7 +229,7 @@
 //  BOOST_WAVE_STRINGTYPE above.
 #include <boost/wave/util/flex_string.hpp>
 
-#endif // BOOST_WORKAROUND(_MSC_VER, <= 1300) et.al.
+#endif // BOOST_WORKAROUND(__MWERKS__, < 0x3200) et.al.
 #endif // !defined(BOOST_WAVE_STRINGTYPE)
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -389,6 +402,22 @@ namespace boost { namespace wave
     typedef unsigned long uint_literal_type;
 #endif
 }}
+
+///////////////////////////////////////////////////////////////////////////////
+//  On some platforms Wave will not be able to properly detect whether wchar_t
+//  is representing a signed or unsigned integral data type. Use the 
+//  configuration constants below to force wchar_t being signed or unsigned, as
+//  appropriate.
+//
+//  The default is to use std::numeric_limits<wchar_t>::is_signed.
+
+#define BOOST_WAVE_WCHAR_T_AUTOSELECT       1
+#define BOOST_WAVE_WCHAR_T_FORCE_SIGNED     2
+#define BOOST_WAVE_WCHAR_T_FORCE_UNSIGNED   3
+
+#if !defined(BOOST_WAVE_WCHAR_T_SIGNEDNESS)
+#define BOOST_WAVE_WCHAR_T_SIGNEDNESS BOOST_WAVE_WCHAR_T_AUTOSELECT
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 //  Wave needs at least 4 parameters for phoenix actors
